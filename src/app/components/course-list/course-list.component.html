@@ -1,0 +1,50 @@
+<div class="list row mt-5 py-5">
+  <div class="col-md-6">
+    <div class="input-group mb-3">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Search course title"
+        autocomplete="off"
+        [(ngModel)]="title"
+      />
+      &nbsp;&nbsp;&nbsp;
+      <div class="input-group-append">
+        <button
+          class="btn btn-md btn-outline-primary"
+          (click)="searchCourseTitle()"
+        >
+          Search
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3>Courses List</h3>
+      <ul class="list-group">
+        <li
+          class="list-group-item"
+          *ngFor="let course of courses; let i = index"
+          [class.active]="i == currentIndex"
+          (click)="setActiveCourse(course, i)"
+        >
+          {{ course.title }}
+        </li>
+      </ul>
+
+      <button
+        class="btn btn-sm btn-outline-danger m-3"
+        (click)="removeAllCourses()"
+      >
+        Remove All Courses
+      </button>
+    </div>
+    <div class="col-md-6">
+      <app-course-details
+        [viewMode]="true"
+        [currentCourse]="currentCourse"
+      ></app-course-details>
+    </div>
+  </div>
+</div>

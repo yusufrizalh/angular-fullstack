@@ -1,0 +1,120 @@
+<div *ngIf="viewMode; else editable">
+  <div *ngIf="currentCourse.id">
+    <h3>Course</h3>
+    <div class="mb-2">
+      <label><strong>Title: </strong></label>
+      {{ currentCourse.title }}
+    </div>
+    <div class="mb-2">
+      <label><strong>Price: </strong></label>
+      {{ currentCourse.price }}
+    </div>
+    <div class="mb-2">
+      <label><strong>Description: </strong></label>
+      {{ currentCourse.description }}
+    </div>
+    <div class="mb-2">
+      <label><strong>Status: </strong></label>
+      {{ currentCourse.published ? "Published" : "Pending" }}
+    </div>
+    <a
+      routerLink="/courses/{{ currentCourse.id }}"
+      class="btn btn-sm btn-outline-warning"
+      >Edit</a
+    >
+  </div>
+
+  <div *ngIf="!currentCourse">
+    <br />
+    <p>Please click on a Course</p>
+  </div>
+</div>
+
+<ng-template #editable>
+  <div *ngIf="currentCourse.id" class="edit-form mt-5 py-3">
+    <h3>Edit Course</h3>
+    <form>
+      <div class="form-group mb-3">
+        <label for="title"><strong>Title</strong></label>
+        <input
+          type="text"
+          name="title"
+          id="title"
+          class="form-control"
+          [(ngModel)]="currentCourse.title"
+        />
+      </div>
+      <div class="form-group mb-3">
+        <label for="price"><strong>Price</strong></label>
+        <input
+          type="text"
+          name="price"
+          id="price"
+          class="form-control"
+          [(ngModel)]="currentCourse.price"
+        />
+      </div>
+      <div class="form-group mb-3">
+        <label for="description"><strong>Description</strong></label>
+        <textarea
+          name="description"
+          id="description"
+          cols="20"
+          rows="6"
+          class="form-control"
+          placeholder="Enter Course Description"
+          required
+          [(ngModel)]="currentCourse.description"
+        ></textarea>
+        <!-- <input
+          type="text"
+          name="description"
+          id="description"
+          class="form-control"
+          [(ngModel)]="currentCourse.description"
+        /> -->
+      </div>
+      <div class="form-group mb-3">
+        <label for="status"><strong>Status</strong></label>
+        &nbsp;
+        {{ currentCourse.published ? "Published" : "Pending" }}
+      </div>
+    </form>
+
+    <div class="d-flex justify-content-between mt-5">
+      <button
+        class="btn btn-sm btn-outline-primary"
+        *ngIf="currentCourse.published"
+        (click)="updatePublished(false)"
+      >
+        Unpublished
+      </button>
+      <button
+        class="btn btn-sm btn-outline-primary"
+        *ngIf="!currentCourse.published"
+        (click)="updatePublished(true)"
+      >
+        Published
+      </button>
+
+      <button class="btn btn-sm btn-outline-danger" (click)="deleteCourse()">
+        Delete
+      </button>
+
+      <button
+        type="submit"
+        class="btn btn-sm btn-outline-info"
+        (click)="updateCourse()"
+      >
+        Update
+      </button>
+    </div>
+    <br />
+    <p>{{ message }}</p>
+  </div>
+
+  <div *ngIf="!currentCourse.id">
+    <br />
+    <p>Cannot access this Course</p>
+  </div>
+</ng-template>

@@ -1,0 +1,58 @@
+<div class="container mt-5 py-5">
+  <div class="submit-form">
+    <h3 class="mb-3">Add New Course</h3>
+
+    <div *ngIf="!submitted">
+      <div class="form-group mb-3">
+        <label for="title"><strong>Title</strong></label>
+        <input
+          type="text"
+          name="title"
+          id="title"
+          class="form-control"
+          placeholder="Enter Course Title"
+          autocomplete="off"
+          required
+          [(ngModel)]="course.title"
+        />
+      </div>
+      <div class="form-group mb-3">
+        <label for="price"><strong>Price</strong></label>
+        <input
+          type="text"
+          name="price"
+          id="price"
+          class="form-control"
+          placeholder="Enter Course price"
+          autocomplete="off"
+          required
+          [(ngModel)]="course.price"
+        />
+      </div>
+      <div class="form-group mb-3">
+        <label for="description"><strong>Description</strong></label>
+        <textarea
+          name="description"
+          id="description"
+          cols="20"
+          rows="6"
+          class="form-control"
+          placeholder="Enter Course Description"
+          required
+          [(ngModel)]="course.description"
+        ></textarea>
+      </div>
+
+      <button class="btn btn-md btn-primary" (click)="saveCourse()">
+        Save
+      </button>
+    </div>
+
+    <div *ngIf="submitted">
+      <h6>Course was submitted!</h6>
+      <button class="btn btn-md btn-info" (click)="newCourse()">
+        Add Course
+      </button>
+    </div>
+  </div>
+</div>
